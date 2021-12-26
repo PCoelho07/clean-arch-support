@@ -3,7 +3,7 @@ import { Command } from "./decorators/command-decorator";
 import { BaseCreateCommand } from "./contracts/base-create-command";
 import { ICommand } from "./contracts/command";
 
-@Command('create-usecase')
+@Command('CreateUseCaseCommand')
 export class CreateUseCaseCommand extends BaseCreateCommand implements ICommand {
     name: string = 'create-usecase'
     signature: string = 'make:use-case :UseCaseName:'

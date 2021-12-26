@@ -1,7 +1,10 @@
 import 'reflect-metadata'
+import { container } from 'tsyringe'
 
 export function Command(commandName: string) {
     return function (target: any) {
-        Reflect.defineMetadata('command', commandName, target)
+        container.register(commandName, {
+            useClass: target
+        })
     }
 }

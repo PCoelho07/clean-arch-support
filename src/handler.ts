@@ -3,11 +3,7 @@ import { ICommand } from "./commands/contracts/command"
 import commands from "./commands"
 
 export class Handler {
-    private commandList: {
-        name: string
-        signature: string
-        instance: ICommand
-    }[]
+    private commandList: ICommand[]
 
     constructor() {
         this.commandList = []
@@ -18,14 +14,9 @@ export class Handler {
     }
 
     private registerCommands(): void {
-        commands.forEach((command: any) => {
-            const token = Reflect.getMetadata('command', command)
-            const commandInstance: ICommand = container.resolve(token)
-            this.commandList.push({
-                name: commandInstance.name,
-                signature: commandInstance.signature,
-                instance: commandInstance
-            })
+        commands.forEach((command: Function) => {
+            const commandInstance: ICommand = container.resolve(command.name)
+            this.commandList.push(commandInstance)
         })
     }
 
@@ -42,6 +33,6 @@ export class Handler {
             throw new Error(`Command ${commandInput} not found!`)
         }
 
-        command.instance.run()
+        command.run()
     }
 }
