@@ -4,7 +4,11 @@ import 'reflect-metadata'
 import { Handler } from "./handler"
 
 (function main() {
-    const handler = new Handler()
-    handler.init()
-    handler.run()
+    try {
+        const handler = new Handler()
+        handler.init()
+        handler.run()
+    } catch (error) {
+        console.log(error)
+    }
 })()

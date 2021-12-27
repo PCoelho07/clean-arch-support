@@ -2,6 +2,6 @@ import { ITemplateEngineGateway } from "../commands/contracts/template-engine-ga
 
 export class TemplateEngine implements ITemplateEngineGateway {
     render(templateString: string, params: object): string {
-        return 'test'
+        return templateString
     }
 }

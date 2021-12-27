@@ -7,13 +7,12 @@ export abstract class BaseCreateCommand implements ICommand {
     signature!: string
 
     constructor(
-        private readonly templateEngineGateway: ITemplateEngineGateway
+        protected readonly templateEngineGateway: ITemplateEngineGateway
     ) {}
 
     abstract templateString(): string
 
     run(): void {
-        console.log('rodei!')
         const template: Buffer = readFileSync(this.templateString())
         const templateParsed = this.templateEngineGateway.render(template.toString(), {})
 

@@ -1,5 +1,7 @@
 import { container } from "tsyringe"
+
 import { ICommand } from "./commands/contracts/command"
+import { TemplateEngine } from "./gateways/template-engine-gateway"
 import commands from "./commands"
 
 export class Handler {
@@ -10,13 +12,27 @@ export class Handler {
     }
 
     init(): void {
+        this.registerInjectionContainer()
         this.registerCommands()
+        this.registerCommandSignatures()
+    }
+
+    private registerInjectionContainer() {
+        container.register('ITemplateEngineGateway', {
+            useClass: TemplateEngine
+        })
     }
 
     private registerCommands(): void {
         commands.forEach((command: Function) => {
             const commandInstance: ICommand = container.resolve(command.name)
             this.commandList.push(commandInstance)
+        })
+    }
+
+    private registerCommandSignatures(): void {
+        this.commandList.forEach((command: ICommand) => {
+
         })
     }
 
